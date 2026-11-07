@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.cu.experiments.spark'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.spark:spark-core_2.12:3.5.6'
+    implementation 'org.apache.spark:spark-sql_2.12:3.5.6'
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = 'org.cu.experiments.spark.Main'
+    applicationDefaultJvmArgs = [
+        '--add-opens=java.base/sun.nio.ch=ALL-UNNAMED',
+        '--add-opens=java.base/java.nio=ALL-UNNAMED',
+        '--add-opens=java.base/java.lang=ALL-UNNAMED',
+        '--add-opens=java.base/java.lang.invoke=ALL-UNNAMED',
+        '--add-opens=java.base/java.util=ALL-UNNAMED',
+        '--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
+        '--add-opens=java.base/java.net=ALL-UNNAMED'
+    ]
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs = [
+        '--add-opens=java.base/sun.nio.ch=ALL-UNNAMED',
+        '--add-opens=java.base/java.nio=ALL-UNNAMED',
+        '--add-opens=java.base/java.lang=ALL-UNNAMED',
+        '--add-opens=java.base/java.lang.invoke=ALL-UNNAMED',
+        '--add-opens=java.base/java.util=ALL-UNNAMED',
+        '--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
+        '--add-opens=java.base/java.net=ALL-UNNAMED'
+    ]
+}
